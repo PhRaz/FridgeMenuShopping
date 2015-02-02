@@ -1,4 +1,61 @@
-# FridgeMenuShopping
+* FridgeMenuShopping
+
 Application to manage Fridge content, menus and shopping.
+
+L'idée de cette application vient de la méthode qu'utilise Catherine pour gérer
+les courses et les menus à la maison. C'est simple, elle utilise une grande
+ardoise blanche divisée en 3 zones,
+- une zone "contenu du frigo"
+- une zone "menu de la semaine", l'unité de temps de la semaine est "idéale"
+- une zone "liste de course",
+ensuite :
+- le contenu du frigo est mis à jour après les courses en fonction de ce qui a
+  été acheté
+- les menus sont définis en fonction de ce qu'il y a dans le frigo
+- la liste des prochaines courses est mise à jour en fonction de ce qui reste
+  dans le frigo et des menus prévus
+
+Le terme frigo est utilisé ici pour désigner aussi bien le frigo que le
+congélateur et les placards de la cuisine ...
+
+Cette application permet de
+- lister et gérer le contenu du frigo
+- de faire les menus en fonction du contenu du frigo
+- de maintenir la liste des courses en fonction de ce qui a été consommé pour
+  faire les menus
+- et on recommence : la liste des courses peut être utilisée pour mettre à jour
+  le contenu du frigo (après avoir fait les courses)
+
+J'ai remarqué qu'il ne faut pas être trop rigoureux dans l'utilisation de ce
+système, on n'a pas besoin de tout noter ni d'être très précis :
+- la liste des courses permet de na pas oublier les choses importantes, mais on
+  peut acheter ce qu'on veut en fonction des promotions ou des bonnes affaires
+  ou des envies
+- le contenu du frigo peut ne pas tout indiquer ... pas grave, il n'y a pas de
+  contrôle et on peut toujours corriger une erreur sur le tableau !
+- on peut changer les menus au dernier moment, par exemple un truc qu'on avait
+  prévu de faire un soir on le remplace par un autre menu ...
+
+Donc une ardoise avec des feutres effacables c'est une bonne implémentation de
+cette méthode.
+
+Une application pour Android ou IOS doit garder la même flexibilité en apportant
+les avantages suivants :
+- ergonomie : on peut imaginer une application qui utilise des étiquettes avec
+  un contenu assez libre qu'on peut déplacer, effacer ou copier d'une zone à une
+  autre, le contenu est libre mais en même temps le programme doit être assez
+  intelligent pour interpréter des informations de dates (peremption ...) ou de
+  quantitée (nombre de parts, poids, volume ...), par exemple une étiquette avec
+  "yaourt nature, 2 feb 2015, 8"
+- mobilité :
+  - je peux mettre à jour mes informations n'importe où
+  - la liste de courses peut être consulter sur mon smartphone quand on fait les
+    courses
+- je peux consulter un site de recette qui prend en compte le contenu de mon
+  frigo (en France on a Marmiton.org)
+- historique : le programme garde l'historique des informations pour faire
+  des statistique sur une longue période
+
+
 
 
