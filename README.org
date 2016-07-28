@@ -26,68 +26,9 @@ Cette application permet de
 - et on recommence : la liste des courses peut être utilisée pour mettre à jour
   le contenu du frigo (après avoir fait les courses)
 
-* modele de données
-
-** les entitées
-
-- denrees
-    - id_denree
-    - nom
-    - type
-    - fournisseur
-  - denrees_disponibles
-    - id_denree_disponible
-    - quantite
-    - date_quantitee
-    - date péremption
-    - lieu de stockage
-  - repas
-    - id_repas
-    - date
-    - heure
-    - lieu
-    - id_denrées_disponibles
-    - quantité_utilisée
-  - liste_de_courses
-    - date_courses
-    - id_denree
-    - quantité
-
-- les informations mises à jour par la logique interne du modèle de données (le
-  fonctionnement par défaut) peuvent être modifiées par l'utilisateur à
-  n'importe quel moment
-  - changement de la valeur de denree_disponible:quantitee :
-    - le champ denree_disponible:date_quantitee permet de savoir à quelle date le
-      champ denree_dionible:quantitee est valide et donc de prendre en compte les
-      repas dont la date est postérieure dans le calcul de la quantitee
-  - repas non pris comme prévu :
-    - on remet le repas à plus tard en changeant la date
-    - on supprime le repas : en foncin de la date on remet à jour les
-      quantitées disponibles
-- un trigger doit mettre à jour les quantitées des denrées en fonction de la
-  date du jour et des dates des repas
-- quand la date d'un repas est passée les denrées utilisées ne sont plus
-  disponibles, denrées disponibles = denrée dont la quantitée est > 0
-- on peut rendre indisponible une denrée sans qu'elle soit utilisée dans un
-  repas
-
-- actions automatiques
-
-- actions utilisateur
-  - mise à jour d'une quantitée
-  - création d'un repas
-  - suppression d'un repas
-  - changement de date d'un repas
-  -
-
-- traitement d'une requête
-  - mise à jour du modèle de données
-  - prise en compte de la requête de l'utilisateur
-
-
 J'ai remarqué qu'il ne faut pas être trop rigoureux dans l'utilisation de ce
 système, on n'a pas besoin de tout noter ni d'être très précis :
-- la liste des courses permet de na pas oublier les choses importantes, mais on
+- la liste des courses permet de ne pas oublier les choses importantes, mais on
   peut acheter ce qu'on veut en fonction des promotions ou des bonnes affaires
   ou des envies
 - le contenu du frigo peut ne pas tout indiquer ... pas grave, il n'y a pas de
@@ -100,6 +41,9 @@ cette méthode.
 
 Une application pour Android ou IOS doit garder la même flexibilité en apportant
 les avantages suivants :
+- les informations sont mise à jour en fonction de la date, par exemple :
+  - dès que la date d'un repas est passée on met à jour les denrées disponibles
+  - dès que la date des courses est passée on met à jour les denrées disponibles
 - ergonomie : on peut imaginer une application qui utilise des étiquettes avec
   un contenu assez libre qu'on peut déplacer, effacer ou copier d'une zone à une
   autre, le contenu est libre mais en même temps le programme doit être assez
@@ -108,13 +52,72 @@ les avantages suivants :
   "yaourt nature, 2 feb 2015, 8"
 - mobilité :
   - je peux mettre à jour mes informations n'importe où
-  - la liste de courses peut être consulter sur mon smartphone quand on fait les
+  - la liste de courses peut être consultée sur mon smartphone quand on fait les
     courses
 - je peux consulter un site de recette qui prend en compte le contenu de mon
   frigo (en France on a Marmiton.org)
 - historique : le programme garde l'historique des informations pour faire
   des statistique sur une longue période
 
+* modéle de données
 
+** les entitées
 
+- denrees
+  - id_denree
+  - nom
+  - type
+  - fournisseur
+- denrees_disponibles
+  - id_denree_disponible
+  - quantite
+  - date_quantitee
+  - date péremption
+  - lieu de stockage
+- repas
+  - id_repas
+  - date
+  - heure
+  - lieu
+  - id_denrées_disponibles
+  - quantité_utilisée
+- liste_de_courses
+  - date_courses
+  - id_denree
+  - quantité
 
+** fonctionnement
+
+- les informations mises à jour par la logique interne du modèle de données (le
+  fonctionnement par défaut) peuvent être modifiées par l'utilisateur à
+  n'importe quel moment (pas de contrainte imposées par le modèle de données)
+  - changement de la valeur de denree_disponible:quantitee :
+    - le champ denree_disponible:date_quantitee permet de savoir à quelle date le
+      champ denree_dionible:quantitee est valide et donc de prendre en compte les
+      repas dont la date est postérieure dans le calcul de la quantitee
+  - repas non pris comme prévu :
+    - on remet le repas à plus tard en changeant la date
+    - on supprime le repas : en fonction de la date on remet à jour, ou pas, les
+      quantitées disponibles
+- un trigger doit mettre à jour les quantitées des denrées en fonction de la
+  date du jour et des dates des repas
+- quand la date d'un repas est passée les denrées utilisées ne sont plus
+  disponibles, denrées disponibles = denrée dont la quantitée est > 0
+- on peut rendre indisponible une denrée sans qu'elle soit utilisée dans un
+  repas
+
+** actions automatiques
+
+- mise à jour des denrées disponible en fonction des repas passés des courses
+  passées
+
+** actions utilisateurs
+- mise à jour d'une quantitée
+- création d'un repas
+- suppression d'un repas
+- changement de date d'un repas
+
+** traitement d'une requête
+
+- mise à jour du modèle de données (actions automatiques)
+- prise en compte de la requête de l'utilisateur
