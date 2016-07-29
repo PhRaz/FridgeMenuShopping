@@ -59,19 +59,19 @@ les avantages suivants :
 - historique : le programme garde l'historique des informations pour faire
   des statistique sur une longue période
 
-* modéle de données
+* modèle de données
 
 ** les entitées
 
 - denrees
   - id_denree
   - nom
-  - type
-  - fournisseur
-- denrees_disponibles
-  - id_denree_disponible
+  - disponible
+    - flag
   - quantite
+    - NULL si non géré, par exemple pour les pâtes
   - date_quantitee
+    - date de la dernière mise à jour du champ quantité
   - date péremption
   - lieu de stockage
 - repas
@@ -85,6 +85,7 @@ les avantages suivants :
   - date_courses
   - id_denree
   - quantité
+    - NULL si non géré, par exemple pour l'eau les pâtes ...
 
 ** fonctionnement
 
@@ -99,6 +100,13 @@ les avantages suivants :
     - on remet le repas à plus tard en changeant la date
     - on supprime le repas : en fonction de la date on remet à jour, ou pas, les
       quantitées disponibles
+- gestion des quantités :
+  - dans la cas d'un poulet consommé lors d'un repas on sait que la quantité
+    diminuée de 1 après le repas
+  - par contre pour des pâtes on ne peut pas gérer la quantité automatiquement
+  - on prévoit donc d'utiliser la valeur NULL pour le champ quantité si sa
+    valeur ne peut pas être gérée automatiquement
+- gestion des restes :
 - un trigger doit mettre à jour les quantitées des denrées en fonction de la
   date du jour et des dates des repas
 - quand la date d'un repas est passée les denrées utilisées ne sont plus
@@ -108,8 +116,11 @@ les avantages suivants :
 
 ** actions automatiques
 
-- mise à jour des denrées disponible en fonction des repas passés des courses
-  passées
+- mise à jour des denrées disponibles en fonction
+  - des repas passés
+  - des courses passées
+- proposition de denrées pour la liste des courses en fonction des dernières
+  denrées épuisées
 
 ** actions utilisateurs
 - mise à jour d'une quantitée
